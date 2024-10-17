@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tellevo_arq_limpia/domain/entities/mensaje/respuesta_sms.dart';
 import 'package:tellevo_arq_limpia/presentations/providers/mensaje/contador_provider.dart';
+import 'package:tellevo_arq_limpia/presentations/providers/mensaje/mensaje_sms_provider.dart';
+
 
 class Mensajes extends StatelessWidget {
   const Mensajes({super.key});
@@ -30,13 +33,17 @@ class _BotonEnviarMensaje extends ConsumerWidget  {
     // Al ser un ConsumerWidget de riverpod, tenemos acceso a los providers definidos. Estos se toman del main.dart
     // Como es un boton, vamos a hacer que cambie el valor del boton circular.
     return ElevatedButton(
-      onPressed: () => {
+      onPressed: () {
         // Aquí va la acción que se ejecuta al presionar el botón
-        ref.read(contadorProviderProvider.notifier).increment()
+        ref.read(contadorProviderProvider.notifier).increment();
+        // Aqui el envio del mensaje de texto al telefono por la API textflow.me
+        ref.read(mensajeSmsProvider.notifier).enviarMensaje(mensaje: 'Hola, soy Goviedo, estoy feliz de conocerte. Te deseo un buen día.', cel: '+56963723603');
+        final respuesta = ref.watch(mensajeSmsProvider);
+        print('Respuesta del envio de mensaje: ${respuesta.mensaje}');
       },
       style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
+          foregroundColor: Colors.black87,
+          backgroundColor: Colors.yellow[100],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           )),
@@ -46,7 +53,7 @@ class _BotonEnviarMensaje extends ConsumerWidget  {
 }
 
 class _MensajeTexto extends StatelessWidget {
-  const _MensajeTexto({super.key});
+  const _MensajeTexto();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +91,6 @@ class _MensajeTexto extends StatelessWidget {
 }
 
 class _CircularButton extends ConsumerWidget {
-  
 
   const _CircularButton();
 
