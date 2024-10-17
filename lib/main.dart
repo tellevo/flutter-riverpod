@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tellevo_arq_limpia/presentations/screens/nombres.dart';
+import 'package:tellevo_arq_limpia/presentations/screens/mensaje/mensajes.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
