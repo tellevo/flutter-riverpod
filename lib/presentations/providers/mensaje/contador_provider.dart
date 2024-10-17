@@ -8,4 +8,8 @@ class ContadorProvider extends _$ContadorProvider {
   int build() {
     return 0;
   }
+
+  void increment() {
+    state = state + 1;
+  }
 }

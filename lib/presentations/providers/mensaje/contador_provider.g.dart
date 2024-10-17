@@ -6,7 +6,7 @@ part of 'contador_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$contadorProviderHash() => r'9b10493a52b744125eadc59c3826e05355c2fda7';
+String _$contadorProviderHash() => r'5a780b9ee52d76bb60768219c4a281e3808c41c8';
 
 /// See also [ContadorProvider].
 @ProviderFor(ContadorProvider)

@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tellevo_arq_limpia/presentations/providers/mensaje/contador_provider.dart';
 
 class Mensajes extends StatelessWidget {
   const Mensajes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        _CircularButton(number: 0),
-        _MensajeTexto(),
-        _BotonEnviarMensaje(),
-      ],
-    ));
+    return SafeArea(
+      child: Center(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _CircularButton(),
+          _MensajeTexto(),
+          _BotonEnviarMensaje(),
+        ],
+      )),
+    );
   }
 }
 
-class _BotonEnviarMensaje extends StatelessWidget {
-  const _BotonEnviarMensaje({super.key});
+class _BotonEnviarMensaje extends ConsumerWidget  {
+  const _BotonEnviarMensaje();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    // Al ser un ConsumerWidget de riverpod, tenemos acceso a los providers definidos. Estos se toman del main.dart
+    // Como es un boton, vamos a hacer que cambie el valor del boton circular.
     return ElevatedButton(
-      onPressed: () => print('Hola'),
+      onPressed: () => {
+        // Aquí va la acción que se ejecuta al presionar el botón
+        ref.read(contadorProviderProvider.notifier).increment()
+      },
       style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
@@ -73,13 +83,19 @@ class _MensajeTexto extends StatelessWidget {
   }
 }
 
-class _CircularButton extends StatelessWidget {
-  final int number;
+class _CircularButton extends ConsumerWidget {
+  
 
-  const _CircularButton({required this.number});
+  const _CircularButton();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    // Al ser un ConsumerWidget de riverpod, tenemos acceso a los providers definidos. Estos esta declarado asi desde el main.dart
+
+    // Entonces ahora quedo a la escuchar el valor del contadorProvider y mostrar el botón circular con el valor actualizado.
+    final number = ref.watch(contadorProviderProvider);
+
     return GestureDetector(
       onTap: () {
         // Acción que se ejecuta al presionar el botón
