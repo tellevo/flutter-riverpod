@@ -34,9 +34,7 @@ class _BotonEnviarMensaje extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*  AsyncValue<RespuestaSms> r = ref.watch(
-          mensajeSms2Provider(mensajeController.value.text, celController.value.text.isEmpty? '+56963723603' : celController.value.text)
-    );*/
+     AsyncValue<RespuestaSms> respuesta = ref.watch(mensajeSmsNotifierProvider);
 
     // Al ser un ConsumerWidget de riverpod, tenemos acceso a los providers definidos. Estos se toman del main.dart
     // Como es un boton, vamos a hacer que cambie el valor del boton circular.
@@ -46,31 +44,11 @@ class _BotonEnviarMensaje extends ConsumerWidget {
         ref.read(contadorProviderProvider.notifier).increment();
         // Aqui el envio del mensaje de texto al telefono por la API textflow.me
 
-        final respuesta = ref.read(mensajeSmsProvider.notifier).enviarMensaje(
-            mensaje: mensajeController.value.text,
-            cel: celController.value.text.isEmpty
+        ref.read(mensajeSmsNotifierProvider.notifier).enviarMensaje(
+            mensajeController.value.text,
+            celController.value.text.isEmpty
                 ? '+56963723603'
                 : celController.value.text);
-
-        respuesta.then((value) => {print('Mensaje: ' + value.mensajeResultadoApi)},
-            onError: (error) {
-          print('No se pudo enviar el mensaje');
-        });
-
-        /*
-        switch (respuesta.) {
-          case AsyncData(:final value): 
-            print('Mensaje enviado correctamente: ${value.mensaje}');
-            break;
-          case AsyncLoading<RespuestaSms>():
-            print('Enviando el mensaje...');
-            break;
-          case AsyncError<RespuestaSms>():
-            print('No se pudo enviar el mensaje');
-            break;
-          default:
-            print('Error desconocido');
-        }*/
       },
       style: ElevatedButton.styleFrom(
           foregroundColor: Colors.black87,
@@ -78,7 +56,14 @@ class _BotonEnviarMensaje extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           )),
-      child: Text('Envialo Ahora!!!, Yaaaaaaaaa!!!!!'),
+      child: 
+         Center(
+                child: switch(respuesta) {
+                  AsyncData(:final value) => Text('Enviar...${value.mensajeResultadoApi}'),
+                  AsyncError() => Text('No se pudo enviar el mensaje'),
+                  AsyncLoading() => Text('Enviando...'),
+                }
+              ),
     );
   }
 }
