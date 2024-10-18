@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tellevo_arq_limpia/domain/entities/mensaje/respuesta_sms.dart';
 import 'package:tellevo_arq_limpia/presentations/providers/mensaje/contador_provider.dart';
 import 'package:tellevo_arq_limpia/presentations/providers/mensaje/mensaje_sms_provider.dart';
 
@@ -47,7 +46,7 @@ class _BotonEnviarMensaje extends ConsumerWidget  {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           )),
-      child: Text('Envialo Ahora!!!, estoy Ansioso!!!!!'),
+      child: Text('Envialo Ahora!!!, Yaaaaaaaaa!!!!!'),
     );
   }
 }

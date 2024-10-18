@@ -1,0 +1,9 @@
+#!/bin/bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer sEGFUeV0FbmiEO6uoqHketZbkAKvO7hlh8LzPCHV0NwfIIY99whjk7V5igWDc7WG" \
+-d '{
+  "phone_number": "+56963723603",
+  "text": "Probando probando"
+}' \
+https://textflow.me/api/send-sms

@@ -8,9 +8,11 @@ environment:
 
 dependencies:
   build_runner: ^2.4.13
+  dio: ^5.7.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.0.0-dev.3
+  http: ^1.2.2
   riverpod_annotation: ^3.0.0-dev.3
   riverpod_generator: ^3.0.0-dev.11
   riverpod_lint: ^3.0.0-dev.4
