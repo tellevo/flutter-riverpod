@@ -1,10 +1,12 @@
+import 'package:tellevo_arq_limpia/infraestructure/models/mensaje/response_data.dart';
+
 class ResponseApi {
-  final String ok;
-  final String status;
+  final bool ok;
+  final int status;
   final String message;
   final ResponseData data;
 
-  ResponseApi({required this.ok, required this.status, required this.message, this.data});
+  ResponseApi({required this.ok, required this.status, required this.message, required this.data});
   
   factory ResponseApi.fromJson(Map<String, dynamic> json) {
     return ResponseApi(
